@@ -37,3 +37,6 @@ This system will give a brief of role based login with dynamic menu binding.
     </tr>
   </tbody>
 </table>  
+
+<h2>Installing & Run</h2>
+Clone & Download project. It contains HMSDB.bak database file, Restore database and sql server. After Server Backup, run the project in Visual Studio.
