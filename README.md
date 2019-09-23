@@ -10,3 +10,30 @@ This system will give a brief of role based login with dynamic menu binding.
 <li>It will helps you to use same modal for adding and editing purpose with partial view</li>
 </ul>  
 
+<h2>Login Details</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Username</th>
+      <th>Password</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Developer</td>
+      <td>developer@test.com</td>
+      <td>developer123</td>
+    </tr>
+    <tr>
+      <td>Admin</td>
+      <td>admin@test.com</td>
+      <td>admin123</td>
+    </tr>
+    <tr>
+      <td>Doctor</td>
+      <td>doctor@test.com</td>
+      <td>doctor123</td>
+    </tr>
+  </tbody>
+</table>  
