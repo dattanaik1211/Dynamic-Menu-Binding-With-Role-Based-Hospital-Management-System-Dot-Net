@@ -1,0 +1,35 @@
+﻿@model HospitalManagementSystem.ViewModel.AccessMenuVM
+
+@using (Ajax.BeginForm("UpdateAccess", new AjaxOptions() { UpdateTargetId = "menuView", HttpMethod = "POST", InsertionMode = InsertionMode.Replace }))
+{
+
+    <div class="form-horizontal">
+        <h4>Menus For @Model.Role.RoleName:-</h4>
+        <hr />
+
+        @Html.HiddenFor(x => Model.Role.Id)
+        @Html.HiddenFor(x => Model.Role.RoleName)
+        <div class="form-group">
+            @for (var i = 0; i < Model.Menus.Count; i++)
+            {
+            <div class="col-md-10">
+                @Html.HiddenFor(x => Model.Menus[i].Id)
+                @if (Model.Menus[i].MenuVM.IsParent)
+                {
+                    @Html.HiddenFor(x => Model.Menus[i].IsActive)
+                    @Html.HiddenFor(x => Model.Menus[i].MenuVM.MenuName)
+                }
+                else
+                {
+                    @Html.CheckBoxFor(x => Model.Menus[i].IsActive)
+                    @Html.DisplayFor(x => Model.Menus[i].MenuVM.MenuName)
+                }
+                @Html.HiddenFor(x => Model.Menus[i].MenuVM.MenuName)
+                @Html.HiddenFor(x => Model.Menus[i].MenuVM.Id)
+            </div>
+            }
+        </div>
+        <input type="submit" value="Save" class="btn btn-default" id="updateAccessBtn" />
+    </div>
+}
+

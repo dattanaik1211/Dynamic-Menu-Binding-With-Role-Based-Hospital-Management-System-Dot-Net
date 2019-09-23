@@ -1,0 +1,124 @@
+﻿@model IEnumerable<HospitalManagementSystem.ViewModel.EmployeeVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-header">
+    <div class="pull-right">
+        <button class="btn btn-primary" id="createBtn" data-url="@Url.Action("CreateEditEmployee", "Employee", null)">Create New</button>
+    </div>
+    <h3>Employees</h3>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MobileNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfJoining)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfJoining)
+            </td>
+            <td>
+                <button class="btn btn-positive editBtn" data-url="@Url.Action("CreateEditEmployee", "Employee", new { id = item.Id })">Edit</button> |
+                @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<div class="modal fade" id="createEditModal" role="dialog">
+    <div id="modalContent">
+    </div>
+</div>
+
+@section PageScripts{
+    <script type="text/javascript">
+
+        function onCreateEditSuccess(result) {
+            if (result.success) {
+                $('#createEditModal').modal('hide');
+                alert(result.message);
+                location.reload();
+            } else if (result.error) {
+                alert(result.message);
+            } else {
+                console.log(result);
+                $("#modalContent").html(result);
+            }
+        }
+
+        $(document).ready(function () {
+
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/MMM/yyyy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0"
+            });
+
+            function openCreateEditPopUp() {
+                var url = $(this).data('url');
+                $.ajax({
+                    url: url,
+                    cache: false,
+                    type: "Get",
+                    success: function (result) {
+                        $("#modalContent").html(result);
+                        $("#createEditModal").modal('show');
+                    },
+                    error: function (error) { console.log(error) }
+                })
+            }
+
+            $("#createBtn").click(openCreateEditPopUp);
+            $(".editBtn").click(openCreateEditPopUp);
+
+        })
+    </script>
+}

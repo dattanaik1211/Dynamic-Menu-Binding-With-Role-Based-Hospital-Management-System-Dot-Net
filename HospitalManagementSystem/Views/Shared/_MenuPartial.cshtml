@@ -1,0 +1,26 @@
+﻿@if (Session["MenuMaster"] != null)
+{
+    var menuList = (List<HospitalManagementSystem.ViewModel.MenuVM>)Session["MenuMaster"];
+    foreach (var menu in menuList)
+    {
+        if (menu.IsParent)
+        {
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    @menu.MenuName
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    @foreach (var submenu in menu.SubMenuList)
+                    {
+                        <li><a href="@Url.Action(submenu.Action,submenu.Controller,null)">@submenu.MenuName</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li><a href="@Url.Action(menu.Action,menu.Controller,null)">@menu.MenuName</a></li>
+        }
+    }
+}

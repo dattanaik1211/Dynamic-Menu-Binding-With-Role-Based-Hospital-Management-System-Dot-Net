@@ -1,0 +1,54 @@
+﻿@model HospitalManagementSystem.ViewModel.ManageMenuVM
+
+@{
+    ViewBag.Title = "ManageMenu";
+}
+
+<h2>Manage Menu</h2>
+<div class="form-inline">
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label" })
+        @Html.DropDownListFor(model => model.RoleId, new SelectList(Model.Roles, "Id", "RoleName"), "Select Role", new { @class = "form-control", id = "roleId" })
+    </div>
+</div>
+
+<div id="menuView">
+
+</div>
+
+@section PageScripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            function loadMenu() {
+                var roleId = $("#roleId").val();
+                $("#menuView").empty();
+
+                if (roleId.length != 0) {
+                    $.ajax({
+                        url: "UpdateAccess",
+                        cache: false,
+                        type: "Get",
+                        data: { 'roleId': roleId },
+                        dataType: "html",
+                        success: function (result) {
+                            $("#menuView").html(result);
+                        },
+                        error: function (error) { console.log(error) }
+                    })
+                } else {
+                    alert("Role is required");
+                }
+            }
+
+            $("#roleId").change(loadMenu)
+
+        })
+    </script>
+
+}
+
+
+
+
+

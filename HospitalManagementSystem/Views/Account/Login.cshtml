@@ -1,0 +1,49 @@
+﻿@model HospitalManagementSystem.ViewModel.LoginVM
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.RememberMe) Remember Me
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="">
+                <input type="submit" value="Login" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <p>
+        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+    </p>
+    <p>
+        @Html.ActionLink("Register as a new user", "Register")
+    </p>
+
+}
